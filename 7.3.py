@@ -43,11 +43,8 @@ class BusinessContact(BaseContact):
     def __str__(self):
         return f"{self.first_name}, {self.last_name}, {self.phone_nr}, {self.email}, {self.position}, {self.company}, {self.work_phone_nr}"
         
-
-cards=[
-]
-
 def contact_generator(type, amount):
+    cards=[]
     if type == 1:
         for i in range(amount):
             cards.append(BaseContact(first_name=fake.first_name(), last_name=fake.last_name(), phone_nr=fake.phone_number(), email=fake.email()))
@@ -55,13 +52,9 @@ def contact_generator(type, amount):
         for i in range(amount):
             cards.append(BusinessContact(first_name=fake.first_name(), last_name=fake.last_name(), phone_nr=fake.phone_number(), email=fake.email(),\
         position=fake.job(),company=fake.company(), work_phone_nr=fake.phone_number()))
+    return cards
 
-
-
-contact_generator(2,10)
-
-
-for i in cards:
+for i in contact_generator(2,10):
     if isinstance(i, BusinessContact)==True:
         BusinessContact.label_length=len(i.first_name)+len(i.last_name)+1
         print(f"{BaseContact.contact(i)}\n{BusinessContact.contact(i)} \n{i.label_length}")
